@@ -1,4 +1,4 @@
-package gg.quartzdev.qselectionapi.Selection;
+package gg.quartzdev.qselectionui.Selection;
 
 import io.papermc.paper.math.BlockPosition;
 import org.bukkit.Color;
@@ -12,13 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Corner extends Selection {
 
-    public Corner(Location pos, Set<Player> viewers, Color color){
-        super(pos, pos, viewers);
-    }
+    Location pos;
 
-    public Corner(Location pos){
-        this.pos = pos;
-        this.color = Color.RED;
+    public Corner(Location pos, Set<Player> viewers, Color color){
+        super(pos, pos, viewers, color);
     }
 
     public void changePos(Location pos){
@@ -30,15 +27,16 @@ public class Corner extends Selection {
     }
 
     public void addViewer(Player player, boolean canEdit){
-        viewers.put(player, canEdit);
+        this.viewers.add(player);
     }
 
     public void removeViewer(Player player){
-        viewers.remove(player);
+        this.viewers.remove(player);
     }
 
     public boolean canEdit(Player player){
-        return viewers.containsKey(player) && viewers.get(player);
+//        return viewers.containsKey(player) && viewers.get(player);
+        return false;
     }
 
     public Location getPos(){

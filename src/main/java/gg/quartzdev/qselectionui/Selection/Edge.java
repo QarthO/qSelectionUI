@@ -1,4 +1,4 @@
-package gg.quartzdev.qselectionapi.Selection;
+package gg.quartzdev.qselectionui.Selection;
 
 import org.bukkit.Location;
 import org.bukkit.entity.BlockDisplay;

@@ -1,4 +1,4 @@
-package gg.quartzdev.qselectionapi.listeners;
+package gg.quartzdev.qselectionui.listeners;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -50,6 +50,6 @@ public class SelectionListener implements Listener {
         if(pos1 == null || pos2 == null) return;
         if(pos1.getWorld() != pos2.getWorld()) return;
 
-        setDisplay(pos1, pos2);
+//        setDisplay(pos1, pos2);
     }
 }

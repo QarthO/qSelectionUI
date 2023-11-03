@@ -1,4 +1,4 @@
-package gg.quartzdev.qselectionapi.Selection;
+package gg.quartzdev.qselectionui.Selection;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -10,18 +10,16 @@ import java.util.Set;
 public class Selection {
 
     Set<Player> viewers;
-
     Corner primary;
     Corner secondary;
     Set<Edge> frame;
     Set<Edge> extra;
-
     Color color;
 
-    public Selection(Location pos1, Location pos2, Set<Player> players){
+    public Selection(Location pos1, Location pos2, Set<Player> players, Color color){
 //        Set the corners
-        primary = new Corner(pos1);
-        secondary = new Corner(pos2);
+        primary = new Corner(pos1, players, color);
+        secondary = new Corner(pos2, players, color);
 //        Set the color
         this.color = Color.WHITE;
 //        Add the viewers
@@ -38,11 +36,11 @@ public class Selection {
 
 
     public void setPrimary(Location pos){
-        primary.set(pos);
+        this.primary.changePos(pos);
     }
 
-    public void setSecondary(Player player, Location location){
-
+    public void setSecondary(Location pos){
+        this.secondary.changePos(pos);
     }
 
     public void highlightBlock(){
