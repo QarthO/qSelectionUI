@@ -1,0 +1,4 @@
+name: qSelectionAPI
+version: '${project.version}'
+main: gg.quartzdev.qselectionapi.qSelectionAPI
+api-version: '1.20'
