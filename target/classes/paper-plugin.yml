@@ -1,0 +1,4 @@
+name: qSelectionUI
+version: '1.0-SNAPSHOT'
+main: gg.quartzdev.qselectionui.qSelectionUI
+api-version: '1.20'

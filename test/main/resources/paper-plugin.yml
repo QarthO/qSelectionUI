@@ -1,0 +1,4 @@
+name: qTest
+version: '${project.version}'
+main: gg.quartzdev.qtest.qTest
+api-version: '1.20'
