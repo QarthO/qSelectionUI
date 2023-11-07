@@ -9,11 +9,14 @@ public final class qSelectionUI extends JavaPlugin {
 
     int BSTATS_PLUGIN_ID = 20229;
 
+    SelectionManager sm;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
-        setupMetrics(BSTATS_PLUGIN_ID);
-        registerSelectionHandler();
+        this.setupMetrics(BSTATS_PLUGIN_ID);
+        this.setupSelectionManager();
+        this.setupSelectionHandler();
     }
 
     @Override
@@ -21,20 +24,23 @@ public final class qSelectionUI extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    public void registerSelectionHandler(){
+    public void setupSelectionManager(){
+        this.getLogger().info("Setting up SelectionManager");
+        this.sm = new SelectionManager(this);
+    }
+    public void setupSelectionHandler(){
         this.getLogger().info("Registering SelectionListener");
-        try {
-            this.getServer().getPluginManager().registerEvents(new SelectionListener(this, new SelectionManager(this)), this);
-        } catch(Exception e){
-            this.getLogger().severe("- Failed to register SelectionListener");
-            this.getLogger().severe(e.getMessage());
-        }
+        this.getServer().getPluginManager().registerEvents(new SelectionListener(this), this);
     }
 
     public void setupMetrics(int pluginId){
         this.getLogger().info("Enabling bStats Metrics...");
         Metrics metrics = new Metrics(this, pluginId);
 //        TODO: Add custom metrics
+    }
+
+    public SelectionManager getSelectionManager(){
+        return sm;
     }
 
 }

@@ -6,24 +6,24 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.util.HashMap;
 import java.util.Set;
 
 public class SelectionManager {
 
     qSelectionUI plugin;
-    Set<Selection> selections;
+    HashMap<Player, Selection> selections;
 
     public SelectionManager(qSelectionUI plugin){
         this.plugin = plugin;
     }
 
-    public Selection createSelection(Location pos1, Location pos2, Player player){
-
-        Selection selection = new Selection(pos1, pos2, player, Color.WHITE);
-        selection.highlightBlock();
+    public Selection getSelection(Player player){
+        Selection selection = selections.get(player);
+        if(selection == null){
+            selection = new Selection(player);
+            selections.put(player,selection);
+        }
         return selection;
-
     }
-
-
 }

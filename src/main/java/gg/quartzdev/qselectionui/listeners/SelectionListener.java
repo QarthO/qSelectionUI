@@ -5,26 +5,20 @@ import gg.quartzdev.qselectionui.selection.Selection;
 import gg.quartzdev.qselectionui.selection.SelectionManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.plugin.Plugin;
 
 public class SelectionListener implements Listener {
 
     qSelectionUI plugin;
-    SelectionManager sm;
     Material selectionWand = Material.GOLDEN_HOE;
 
-    Location pos1;
-    Location pos2;
-
-    public SelectionListener(qSelectionUI plugin, SelectionManager sm){
+    public SelectionListener(qSelectionUI plugin){
         this.plugin = plugin;
-        this.sm = sm;
+//        this.sm = sm;
     }
 
     @EventHandler
@@ -34,27 +28,27 @@ public class SelectionListener implements Listener {
 //        return if not using selection wand
         if(player.getInventory().getItemInMainHand().getType() != selectionWand) return;
 
+//        get the block
         Block clickedBlock = event.getClickedBlock();
         if(clickedBlock == null) return;
 
+//        cancel the event
         event.setCancelled(true);
 
+//        get the location of the clicked block
         Location clickedBlockLoc = clickedBlock.getLocation();
-        World world = clickedBlockLoc.getWorld();
 
-//        Left Click
+//        get the players selection
+        Selection selection = plugin.getSelectionManager().getSelection(player);
 
+//        update the selection's corner
+//              Left Click - Primary
         if(event.getAction().isLeftClick()){
-            pos1 = clickedBlockLoc;
+            selection.setPrimary(clickedBlockLoc);
         }
-
+//              Right Click - Secondary
         if(event.getAction().isRightClick()){
-            pos2 = clickedBlockLoc;
+            selection.setSecondary(clickedBlockLoc);
         }
-
-        if(pos1 == null || pos2 == null) return;
-        if(pos1.getWorld() != pos2.getWorld()) return;
-
-//        setDisplay(pos1, pos2);
     }
 }

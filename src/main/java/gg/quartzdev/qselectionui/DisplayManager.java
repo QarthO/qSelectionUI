@@ -1,6 +1,5 @@
 package gg.quartzdev.qselectionui;
 
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;

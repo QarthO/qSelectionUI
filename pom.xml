@@ -43,8 +43,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
-                                    <!-- Replace this with your package! -->
-                                    <shadedPattern>gg.quartzdev</shadedPattern>
+                                    <shadedPattern>gg.quartzdev.bstats</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
