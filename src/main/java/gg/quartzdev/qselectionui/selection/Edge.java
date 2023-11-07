@@ -1,13 +1,11 @@
-package gg.quartzdev.qselectionui.Selection;
+package gg.quartzdev.qselectionui.selection;
 
+import gg.quartzdev.qselectionui.DisplayManager;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Display;
 import org.bukkit.entity.ItemDisplay;
-import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.ApiStatus;
 
 public class Edge {
 
@@ -20,27 +18,14 @@ public class Edge {
     public Edge(Location pos1, Location pos2){
         this.center = this.getCenter(pos1, pos2);
         this.world = pos1.getWorld();
-        display = summonDisplay(this.center)
+        display = DisplayManager.summonDisplay(this.center, displayMaterial, color);
     }
 
     public Edge(Location pos1, Location pos2, Color color){
 //        this = new Edge(pos1, pos2);
     }
 
-    @SuppressWarnings("UnstableApiUsage")
-    public ItemDisplay summonDisplay(Location pos){
-        ItemDisplay itemDisplay = world.spawn(pos, ItemDisplay.class);
-        itemDisplay.setItemStack(new ItemStack(displayMaterial));
-//        Sets the display to glow
-        itemDisplay.setGlowing(true);
-        itemDisplay.setGlowColorOverride(color);
-//        Sets brightness to 15 to prevent different shades of color when selection intersects with blocks and air
-        itemDisplay.setBrightness(new Display.Brightness(15,15));
-//        Hides the display for everyone
-        itemDisplay.setVisibleByDefault(false);
-//        this.brandDisplay(itemDisplay, "selection");
-        return itemDisplay;
-    }
+
 
 
     private Location getCenter(Location pos1, Location pos2){

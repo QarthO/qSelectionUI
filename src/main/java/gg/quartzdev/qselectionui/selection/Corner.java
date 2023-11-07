@@ -1,21 +1,17 @@
-package gg.quartzdev.qselectionui.Selection;
+package gg.quartzdev.qselectionui.selection;
 
-import io.papermc.paper.math.BlockPosition;
 import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class Corner extends Selection {
 
     Location pos;
 
-    public Corner(Location pos, Set<Player> viewers, Color color){
-        super(pos, pos, viewers, color);
+    public Corner(Location pos, Player player, Color color){
+        super(pos, pos, player, color);
     }
 
     public void changePos(Location pos){

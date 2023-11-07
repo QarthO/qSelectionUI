@@ -1,5 +1,8 @@
 package gg.quartzdev.qselectionui.listeners;
 
+import gg.quartzdev.qselectionui.qSelectionUI;
+import gg.quartzdev.qselectionui.selection.Selection;
+import gg.quartzdev.qselectionui.selection.SelectionManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -12,14 +15,16 @@ import org.bukkit.plugin.Plugin;
 
 public class SelectionListener implements Listener {
 
-    Plugin plugin;
+    qSelectionUI plugin;
+    SelectionManager sm;
     Material selectionWand = Material.GOLDEN_HOE;
 
     Location pos1;
     Location pos2;
 
-    public SelectionListener(Plugin plugin){
+    public SelectionListener(qSelectionUI plugin, SelectionManager sm){
         this.plugin = plugin;
+        this.sm = sm;
     }
 
     @EventHandler

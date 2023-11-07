@@ -1,4 +1,4 @@
-package gg.quartzdev.qselectionui.Selection;
+package gg.quartzdev.qselectionui.selection;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -16,15 +16,15 @@ public class Selection {
     Set<Edge> extra;
     Color color;
 
-    public Selection(Location pos1, Location pos2, Set<Player> players, Color color){
+    public Selection(Location pos1, Location pos2, Player player, Color color){
 //        Set the corners
-        primary = new Corner(pos1, players, color);
-        secondary = new Corner(pos2, players, color);
+        primary = new Corner(pos1, player, color);
+        secondary = new Corner(pos2, player, color);
 //        Set the color
         this.color = Color.WHITE;
 //        Add the viewers
         this.viewers = new HashSet<>();
-        viewers.addAll(players);
+        viewers.add(player);
 //        Create the selection display
     }
 

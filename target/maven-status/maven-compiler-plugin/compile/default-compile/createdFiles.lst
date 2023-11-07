@@ -1,5 +1,6 @@
-gg\quartzdev\qselectionui\Selection\Edge.class
+gg\quartzdev\qselectionui\DisplayManager.class
 gg\quartzdev\qselectionui\listeners\SelectionListener.class
-gg\quartzdev\qselectionui\Selection\Corner.class
 gg\quartzdev\qselectionui\qSelectionUI.class
 gg\quartzdev\qselectionui\Selection\Selection.class
+gg\quartzdev\qselectionui\Selection\Edge.class
+gg\quartzdev\qselectionui\Selection\Corner.class
