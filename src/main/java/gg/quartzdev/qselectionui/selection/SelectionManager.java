@@ -1,13 +1,9 @@
 package gg.quartzdev.qselectionui.selection;
 
 import gg.quartzdev.qselectionui.qSelectionUI;
-import org.bukkit.Color;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class SelectionManager {
 
@@ -16,12 +12,13 @@ public class SelectionManager {
 
     public SelectionManager(qSelectionUI plugin){
         this.plugin = plugin;
+        this.selections = new HashMap<>();
     }
 
-    public Selection getSelection(Player player){
+    public Selection get(Player player){
         Selection selection = selections.get(player);
         if(selection == null){
-            selection = new Selection(player);
+            selection = new Selection(player, this.plugin);
             selections.put(player,selection);
         }
         return selection;

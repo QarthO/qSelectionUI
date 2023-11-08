@@ -1,4 +1,4 @@
-package gg.quartzdev.qselectionui;
+package gg.quartzdev.qselectionui.util;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -6,8 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Transformation;
 
-public class DisplayManager {
+public class DisplayUtil {
 
     @SuppressWarnings("UnstableApiUsage")
     public static ItemDisplay summonDisplay(Location pos, Material displayMaterial, Color color){
@@ -22,5 +23,16 @@ public class DisplayManager {
         itemDisplay.setVisibleByDefault(false);
 //        this.brandDisplay(itemDisplay, "selection");
         return itemDisplay;
+    }
+
+    public static void resizeDisplay(ItemDisplay itemDisplay, Location locCornerA, Location locCornerB, double offset, double size) {
+
+        double length =  Math.abs(offset + locCornerA.getBlockX()-locCornerB.getBlockX());
+        double width = Math.abs(offset + locCornerA.getBlockZ()-locCornerB.getBlockZ());
+        double height = Math.abs(offset + locCornerA.getBlockY()-locCornerB.getBlockY());
+
+        Transformation transformation = itemDisplay.getTransformation();
+        transformation.getScale().set(length+size, height+size, width+size);
+        itemDisplay.setTransformation(transformation);
     }
 }

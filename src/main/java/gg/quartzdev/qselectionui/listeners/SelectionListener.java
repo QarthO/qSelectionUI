@@ -2,7 +2,7 @@ package gg.quartzdev.qselectionui.listeners;
 
 import gg.quartzdev.qselectionui.qSelectionUI;
 import gg.quartzdev.qselectionui.selection.Selection;
-import gg.quartzdev.qselectionui.selection.SelectionManager;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,7 +18,6 @@ public class SelectionListener implements Listener {
 
     public SelectionListener(qSelectionUI plugin){
         this.plugin = plugin;
-//        this.sm = sm;
     }
 
     @EventHandler
@@ -39,16 +38,18 @@ public class SelectionListener implements Listener {
         Location clickedBlockLoc = clickedBlock.getLocation();
 
 //        get the players selection
-        Selection selection = plugin.getSelectionManager().getSelection(player);
+        Selection selection = plugin.getSelectionManager().get(player);
 
 //        update the selection's corner
 //              Left Click - Primary
         if(event.getAction().isLeftClick()){
             selection.setPrimary(clickedBlockLoc);
+            player.sendMessage(ChatColor.AQUA + "Primary: (" + clickedBlockLoc.getBlockX() + "," + clickedBlockLoc.getBlockY() + "," + clickedBlockLoc.getBlockZ() + ")");
         }
 //              Right Click - Secondary
         if(event.getAction().isRightClick()){
             selection.setSecondary(clickedBlockLoc);
+            player.sendMessage(ChatColor.AQUA + "Secondary: (" + clickedBlockLoc.getBlockX() + "," + clickedBlockLoc.getBlockY() + "," + clickedBlockLoc.getBlockZ() + ")");
         }
     }
 }
