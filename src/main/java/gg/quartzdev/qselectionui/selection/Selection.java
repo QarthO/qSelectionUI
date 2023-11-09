@@ -41,7 +41,6 @@ public class Selection {
         } else {
             this.world = posWorld;
         }
-//
     }
 
     public void setSecondary(Location pos){
@@ -54,6 +53,7 @@ public class Selection {
         }
     }
 
+    @SuppressWarnings("UnstableApiUsage")
     public void visualize(){
 
         if(this.primary.getPos() == null || this.secondary.getPos() == null)
@@ -61,25 +61,28 @@ public class Selection {
 
         this.frame = this.calculateEdges();
 
+        for(Edge edge: this.frame){
+            this.owner.showEntity(this.plugin, edge.getDisplay());
+        }
 
-//        for(Edge edge : edges){
-//
-//        }
     }
-
-    @SuppressWarnings("UnstableApiUsage")
     public Set<Edge> calculateEdges(){
+
         Set<Edge> edges = new HashSet<>();
         List<Corner> corners = this.calculateSelectionCorners();
 
-        Edge edge = new Edge(corners.get(0).getPos(), corners.get(1).getPos());
-        ItemDisplay display = edge.getDisplay();
-        DisplayUtil.resizeDisplay(display, this.primary.getPos(), this.secondary.getPos(), .02, .01);
+        int[][] edgeMatrix = new int[][]{
+                {1,2}, {1,3}, {2,4}, {3,4},
+                {5,6}, {5,7}, {6,8}, {7,8},
+                {1,5}, {2,6}, {4,8}, {3,7}
+        };
 
-        this.owner.showEntity(this.plugin, edge.getDisplay());
-
-        edges.add(edge);
-
+        for(int[] edgeCoords : edgeMatrix){
+            Edge edge = new Edge(corners.get(edgeCoords[0]-1).getPos(), corners.get(edgeCoords[1]-1).getPos());
+            ItemDisplay display = edge.getDisplay();
+            DisplayUtil.resizeDisplay(display, corners.get(edgeCoords[0]-1).getPos(), corners.get(edgeCoords[1]-1).getPos(), .02, .01);
+            edges.add(edge);
+        }
         return edges;
     }
 
