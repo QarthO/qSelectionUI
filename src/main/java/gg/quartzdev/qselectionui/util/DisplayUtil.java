@@ -3,9 +3,12 @@ package gg.quartzdev.qselectionui.util;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Display;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Transformation;
 
 public class DisplayUtil {
@@ -21,7 +24,6 @@ public class DisplayUtil {
         itemDisplay.setBrightness(new Display.Brightness(15,15));
 //        Hides the display for everyone
         itemDisplay.setVisibleByDefault(false);
-//        this.brandDisplay(itemDisplay, "selection");
         return itemDisplay;
     }
 
@@ -34,5 +36,10 @@ public class DisplayUtil {
         Transformation transformation = itemDisplay.getTransformation();
         transformation.getScale().set(length+size, height+size, width+size);
         itemDisplay.setTransformation(transformation);
+    }
+
+    public static void brandDisplay(ItemDisplay itemDisplay, NamespacedKey key, String type){
+        PersistentDataContainer container = itemDisplay.getPersistentDataContainer();
+        container.set(key, PersistentDataType.STRING, type);
     }
 }

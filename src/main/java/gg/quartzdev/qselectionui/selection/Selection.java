@@ -2,6 +2,7 @@ package gg.quartzdev.qselectionui.selection;
 
 import gg.quartzdev.qselectionui.qSelectionUI;
 import gg.quartzdev.qselectionui.util.DisplayUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -53,18 +54,27 @@ public class Selection {
         }
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     public void visualize(){
 
         if(this.primary.getPos() == null || this.secondary.getPos() == null)
             return;
 
         this.frame = this.calculateEdges();
+        this.showDisplay();
 
+
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    public void showDisplay(){
+        Bukkit.getServer().getLogger().info("showing display");
+        if(this.frame == null) {
+            Bukkit.getServer().getLogger().info("but frame is null for: " + this.owner.getName() + " - " + this.owner.getUniqueId());
+            return;
+        }
         for(Edge edge: this.frame){
             this.owner.showEntity(this.plugin, edge.getDisplay());
         }
-
     }
     public Set<Edge> calculateEdges(){
 
@@ -107,28 +117,39 @@ public class Selection {
         if(pos1z >= pos2z) pos1z = pos1z + 1;
         else pos2z = pos2z + 1;
 
+        double[][] cornerMatrix = new double[][]{
+                {pos1x, pos1y, pos1z},
+                {pos2x, pos1y, pos1z},
+                {pos1x, pos1y, pos2z},
+                {pos2x, pos1y, pos2z},
+                {pos1x, pos2y, pos1z},
+                {pos2x, pos2y, pos1z},
+                {pos1x, pos2y, pos2z},
+                {pos2x, pos2y, pos2z},
+        };
+
 //        Corners
 //        https://raw.githubusercontent.com/QarthO/qSelectionUI/main/qSelectionUI%20infographic.png
 //          Image Note: Orientation might vary - primary (corner1)  won't always be the smallest x,y,z
-        Corner corner1 = new Corner(world, pos1x, pos1y, pos1z, this.owner);
-        Corner corner2 = new Corner(world, pos2x, pos1y, pos1z, this.owner);
-        Corner corner3 = new Corner(world, pos1x, pos1y, pos2z, this.owner);
-        Corner corner4 = new Corner(world, pos2x, pos1y, pos2z, this.owner);
-        Corner corner5 = new Corner(world, pos1x, pos2y, pos1z, this.owner);
-        Corner corner6 = new Corner(world, pos2x, pos2y, pos1z, this.owner);
-        Corner corner7 = new Corner(world, pos1x, pos2y, pos2z, this.owner);
-        Corner corner8 = new Corner(world, pos2x, pos2y, pos2z, this.owner);
 
-        corners.add(corner1);
-        corners.add(corner2);
-        corners.add(corner3);
-        corners.add(corner4);
-        corners.add(corner5);
-        corners.add(corner6);
-        corners.add(corner7);
-        corners.add(corner8);
+        for(double[] cornerCoord : cornerMatrix){
+            corners.add(new Corner(world, cornerCoord[0], cornerCoord[1], cornerCoord[2], this.owner));
+        }
 
         return corners;
 
+    }
+
+    public void clear(){
+        if(this.frame == null) return;
+        for(Edge edge : this.frame){
+            edge.delete();
+        }
+    }
+
+    public void reset(){
+        this.primary.clear();
+        this.secondary.clear();
+        this.frame = null;
     }
 }

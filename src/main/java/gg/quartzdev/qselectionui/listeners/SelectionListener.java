@@ -2,6 +2,7 @@ package gg.quartzdev.qselectionui.listeners;
 
 import gg.quartzdev.qselectionui.qSelectionUI;
 import gg.quartzdev.qselectionui.selection.Selection;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 
 public class SelectionListener implements Listener {
 
@@ -21,15 +23,17 @@ public class SelectionListener implements Listener {
     }
 
     @EventHandler
-    public void onSelection(PlayerInteractEvent event){
-        Player player = event.getPlayer();
+    public void onSelection(PlayerInteractEvent event) {
+//        Ignore off-hand interaction event
+        if (event.getHand() != EquipmentSlot.HAND) return;
 
+        Player player = event.getPlayer();
 //        return if not using selection wand
-        if(player.getInventory().getItemInMainHand().getType() != selectionWand) return;
+        if (player.getInventory().getItemInMainHand().getType() != selectionWand) return;
 
 //        get the block
         Block clickedBlock = event.getClickedBlock();
-        if(clickedBlock == null) return;
+        if (clickedBlock == null) return;
 
 //        cancel the event
         event.setCancelled(true);
@@ -40,6 +44,12 @@ public class SelectionListener implements Listener {
 //        get the players selection
         Selection selection = plugin.getSelectionManager().get(player);
 
+        selection.clear();
+
+        if (player.isSneaking()){
+            selection.reset();
+            return;
+        }
 //        update the selection's corner
 //              Left Click - Primary
         if(event.getAction().isLeftClick()){

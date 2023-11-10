@@ -29,6 +29,10 @@ public class Corner {
         this.pos = new Location(world, x, y, z);
     }
 
+    public void clear(){
+        this.pos = null;
+    }
+
     public void changePos(Location pos){
         this.pos = pos;
     }

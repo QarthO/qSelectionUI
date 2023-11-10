@@ -1,14 +1,16 @@
 package gg.quartzdev.qselectionui.selection;
 
 import gg.quartzdev.qselectionui.qSelectionUI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class SelectionManager {
 
     qSelectionUI plugin;
-    HashMap<Player, Selection> selections;
+    HashMap<UUID, Selection> selections;
 
     public SelectionManager(qSelectionUI plugin){
         this.plugin = plugin;
@@ -16,11 +18,14 @@ public class SelectionManager {
     }
 
     public Selection get(Player player){
-        Selection selection = selections.get(player);
+        Bukkit.getLogger().info("" + selections.size());
+        Selection selection = selections.get(player.getUniqueId());
         if(selection == null){
+            Bukkit.getLogger().info("creating new" + selections.size());
             selection = new Selection(player, this.plugin);
-            selections.put(player,selection);
+            selections.put(player.getUniqueId(),selection);
         }
+        selection.owner = player;
         return selection;
     }
 }
