@@ -67,9 +67,7 @@ public class Selection {
 
     @SuppressWarnings("UnstableApiUsage")
     public void showDisplay(){
-        Bukkit.getServer().getLogger().info("showing display");
         if(this.frame == null) {
-            Bukkit.getServer().getLogger().info("but frame is null for: " + this.owner.getName() + " - " + this.owner.getUniqueId());
             return;
         }
         for(Edge edge: this.frame){

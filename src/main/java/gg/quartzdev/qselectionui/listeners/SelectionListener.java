@@ -2,6 +2,10 @@ package gg.quartzdev.qselectionui.listeners;
 
 import gg.quartzdev.qselectionui.qSelectionUI;
 import gg.quartzdev.qselectionui.selection.Selection;
+import gg.quartzdev.qselectionui.util.TitleUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -54,12 +58,15 @@ public class SelectionListener implements Listener {
 //              Left Click - Primary
         if(event.getAction().isLeftClick()){
             selection.setPrimary(clickedBlockLoc);
-            player.sendMessage(ChatColor.AQUA + "Primary: (" + clickedBlockLoc.getBlockX() + "," + clickedBlockLoc.getBlockY() + "," + clickedBlockLoc.getBlockZ() + ")");
+            MiniMessage mm = MiniMessage.miniMessage();
+            String msg = "<aqua>Primary: (<light_purple>" + clickedBlockLoc.getBlockX() + "<aqua>,<light_purple>" + clickedBlockLoc.getBlockY() + "<aqua>,<light_purple>" + clickedBlockLoc.getBlockZ() + "<aqua>)";
+            TitleUtil.show(player, msg, msg);
         }
 //              Right Click - Secondary
         if(event.getAction().isRightClick()){
             selection.setSecondary(clickedBlockLoc);
-            player.sendMessage(ChatColor.AQUA + "Secondary: (" + clickedBlockLoc.getBlockX() + "," + clickedBlockLoc.getBlockY() + "," + clickedBlockLoc.getBlockZ() + ")");
+            String msg = "<aqua>Secondary: (<light_purple>" + clickedBlockLoc.getBlockX() + "<aqua>,<light_purple>" + clickedBlockLoc.getBlockY() + "<aqua>,<light_purple>" + clickedBlockLoc.getBlockZ() + "<aqua>)";
+            TitleUtil.show(player, msg, msg);
         }
     }
 }
